@@ -26,28 +26,32 @@
 			<h2>Coding Semantic and Accessible Forms!</h2>
 			<p>Today we'll be focusing on coding a form that is accessible and semantic, and we'll also briefly discuss skip links for your website. Forms can be a source of frustration for users, whether they specifically need help with accessing your website or if they just prefer that your forms be easy to use and submit. Follow along as we code this in class, and please ask questions as they arise. Let's make a form!</p>
 
-<!-- 	-------- TO-DO: ADD FORM CODE HERE DURING CLASS, FOLLOW ALONG TO COMPLETE -------- -->
-		<form method="post" action="https://wp.zybooks.com/form-viewer.phpLinks to an external site.">
-			<label for="name">Full Name</label>
+		<!--I used a bit of my small understanding of regex here to try and place some limitations on the user to properly enter information into these fields.-->
+		<!--Full name requires first and last name > 1 character each, phone number requires seven digits assuming no regional code. I had a hard time making that work.-->
+		<!--The email type handles the proper formatting requirement for us when the user submits this information.-->
+		<form method="post" action="https://wp.zybooks.com/form-viewer.php">
+			<label for="name">Full Name<span class="required">*</span></label>
 			<input type="text" name="name" id="name" pattern="[A-Za-z]{2,} [A-Za-z]{2,}" title="First and Last Name" placeholder="John Doe" aria-required="true" required>
 
-			<label for="email">Email</label>
+			<label for="email">Email<span class="required">*</span></label>
 			<input type="email" name="email" id="email" placeholder="example@mail.com" aria-required="true" required>
 
-			<label for="tel">Phone</label>
+			<label for="tel">Phone<span class="required">*</span></label>
 			<input type="tel" name="tel" id="tel" pattern="[0-9]{10}" placeholder="1112345678" title="e.g, 1112345678" aria-required="true" required>
 
 			<fieldset>
-				<legend>Preferred Contact Method</legend>
+				<!--The required parameter doesn't work with fieldset, but I'll still present that this choice is required to the user.-->
+				<!--The email option is pre-checked in case the user doesn't have a preference, so the form will always submit with an option selected.-->
+				<legend>Preferred Contact Method<span class="required">*</span></legend>
 
-				<label for="phone-pref">Phone</label>
-				<input id="phone-pref" name="contact-pref" type="radio" checked>
-
+				<input id="email-pref" name="contact-pref" type="radio" value="email-pref" aria-checked="true" checked>
 				<label for="email-pref">Email</label>
-				<input id="email-pref" name="contact-pref" type="radio">
+
+				<input id="phone-pref" name="contact-pref" type="radio" value="phone-pref">
+				<label for="phone-pref">Phone</label>
 			</fieldset>
 
-			<label for="state">State</label>
+			<label for="state">State<span class="required">*</span></label>
 			<input type="text" id="state" name="state" list="state-list" aria-required="true" required>
 			<datalist id="state-list">
 				<option value="Alabama"></option>
@@ -103,7 +107,7 @@
 			</datalist>
 
 			<label for="comments">Comments</label>
-			<textarea name="comments" id="comments" placeholder="Anything you'd like to let us know!"></textarea>
+			<textarea name="comments" id="comments" placeholder="Is there anything you'd like to let us know?"></textarea>
 
 			<input type="submit" value="Submit">
 		</form>
